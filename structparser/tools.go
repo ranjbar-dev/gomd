@@ -1,6 +1,6 @@
 // purpose parse golang struct files to markdown
 
-package gomd
+package structparser
 
 import (
 	"bytes"
@@ -9,26 +9,9 @@ import (
 	"go/parser"
 	"go/token"
 	"io/ioutil"
-	"os"
-	"path/filepath"
 	"reflect"
 	"strings"
 )
-
-// structInfo holds information about a struct and its fields
-type structInfo struct {
-	Name    string
-	Comment string
-	Fields  []fieldInfo
-}
-
-// fieldInfo holds information about a single struct field
-type fieldInfo struct {
-	Name    string
-	Type    string
-	JSONTag string
-	Comment string
-}
 
 // parseFile parses a Go source file and returns a list of structs with field info
 func parseFile(filename string) ([]structInfo, error) {
@@ -167,63 +150,4 @@ func generateMarkdown(structs []structInfo) string {
 func writeMarkdownToFile(filename, content string) error {
 
 	return ioutil.WriteFile(filename, []byte(content), 0644)
-}
-
-func ParseFolder(inputFolder string, outputFolder string) error {
-
-	var goFiles []string
-	err := filepath.Walk(inputFolder, func(path string, info os.FileInfo, err error) error {
-
-		if err != nil {
-
-			return err
-		}
-		if !info.IsDir() && strings.HasSuffix(info.Name(), ".go") {
-
-			goFiles = append(goFiles, path)
-		}
-		return nil
-	})
-	if err != nil {
-
-		return err
-	}
-
-	for _, goFile := range goFiles {
-
-		parsedStructs, err := parseFile(goFile)
-		if err != nil {
-
-			return fmt.Errorf("Error parsing file: %v", err)
-		}
-
-		for _, s := range parsedStructs {
-
-			mdContent := generateMarkdown([]structInfo{s})
-
-			relPath, err := filepath.Rel(inputFolder, goFile)
-			if err != nil {
-
-				return fmt.Errorf("Error determining relative path: %v", err)
-			}
-
-			outputFile := filepath.Join(outputFolder, filepath.Dir(relPath), fmt.Sprintf("%s.md", s.Name))
-
-			err = os.MkdirAll(filepath.Dir(outputFile), os.ModePerm)
-			if err != nil {
-
-				return fmt.Errorf("Error creating output directory: %v", err)
-			}
-
-			err = writeMarkdownToFile(outputFile, mdContent)
-			if err != nil {
-
-				return fmt.Errorf("Error writing markdown file: %v", err)
-			}
-
-			fmt.Printf("Markdown file generated: %s\n", outputFile)
-		}
-	}
-
-	return nil
 }

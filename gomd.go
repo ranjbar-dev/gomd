@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/ranjbar-dev/gomd"
+	"github.com/ranjbar-dev/gomd/structparser"
 )
 
 func main() {
@@ -24,7 +24,7 @@ func main() {
 			return
 		}
 
-		err := gomd.ParseFolder(os.Args[2], os.Args[3])
+		err := structparser.ParseFolder(os.Args[2], os.Args[3])
 		if err != nil {
 
 			fmt.Println("Error parsing folder:", err)
