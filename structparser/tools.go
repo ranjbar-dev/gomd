@@ -117,6 +117,9 @@ func exprToString(expr ast.Expr) string {
 	case *ast.ChanType:
 		return "chan " + exprToString(v.Value)
 
+	case *ast.SelectorExpr:
+		return exprToString(v.X) + "." + v.Sel.Name
+
 	default:
 		var buf bytes.Buffer
 		ast.Fprint(&buf, token.NewFileSet(), expr, nil)
