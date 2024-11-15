@@ -5,7 +5,7 @@ golang tool for creating doc for golang projects
 
 ### Install 
 
-`go install github.com/ranjbar-dev/gomd@v0.0.2`
+`go install github.com/ranjbar-dev/gomd@v0.0.3`
 
 
 ### Usage 
