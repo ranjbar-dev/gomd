@@ -1,5 +1,7 @@
 package types
 
+import "github.com/ranjbar-dev/gomd/example/types/folder"
+
 // User holds information about a user
 type User struct {
 	// ID
@@ -17,7 +19,7 @@ type User struct {
 	// Maps
 	Maps map[int32]string `json:"m"`
 	// Permissions
-	Permissions Permission `json:"p"`
+	Permissions folder.Permission `json:"p"`
 	// Status
 	Status bool `json:"s"`
 }

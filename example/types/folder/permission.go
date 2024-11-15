@@ -1,4 +1,4 @@
-package types
+package folder
 
 // Permission holds information about a user permission
 type Permission struct {

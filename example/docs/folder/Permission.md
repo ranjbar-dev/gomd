@@ -1,6 +1,6 @@
-# User
+# Permission
 
-User holds information about a user
+Permission holds information about a user permission
 
 
 | Field | Type | Json | Description |
@@ -10,8 +10,6 @@ User holds information about a user
 | LastName | string | ln | LastName |
 | Email | string | e | Email |
 | Balance | float64 | b | Balance |
-| Usernames | []string | u | Usernames |
-| Maps | map[int32]string | m | Maps |
-| Permissions | folder.Permission | p | Permissions |
+| Permissions | []string | p | Permissions |
 | Status | bool | s | Status |
 
