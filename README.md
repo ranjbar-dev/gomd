@@ -3,9 +3,9 @@
 golang tool for creating doc for golang projects
 
 
-### Build binary 
+### Install 
 
-`go build -o ./build ./cmd/gomd.go`
+`go install github.com/ranjbar-dev/gomd@v0.0.2`
 
 
 ### Usage 

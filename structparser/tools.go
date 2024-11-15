@@ -106,6 +106,14 @@ func exprToString(expr ast.Expr) string {
 	case *ast.Ident:
 		return v.Name
 
+	case *ast.ArrayType:
+
+		return "[]" + exprToString(v.Elt)
+
+	case *ast.MapType:
+
+		return "map[" + exprToString(v.Key) + "]" + exprToString(v.Value)
+
 	default:
 		var buf bytes.Buffer
 		ast.Fprint(&buf, token.NewFileSet(), expr, nil)
